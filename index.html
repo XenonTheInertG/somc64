@@ -5,53 +5,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SOMC 64 Class Routine</title>
+    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22SOMC%2064%20Class%20Routine%22%2C%22short_name%22%3A%22SOMC%2064%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23f8f9fa%22%2C%22theme_color%22%3A%22%23667eea%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fraw.githubusercontent.com%2FXenonTheInertG%2Fsomc-routine%2F799309361a6d8e3b078213d0435abf25b63aae0e%2FIMG_1682.png%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SOMC 64">
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/XenonTheInertG/somc-routine/799309361a6d8e3b078213d0435abf25b63aae0e/IMG_1682.png">
 
 ```
-<!-- PWA Manifest (inline data URI — no separate file needed) -->
-<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22SOMC%2064%20Class%20Routine%22%2C%22short_name%22%3A%22SOMC%2064%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23f8f9fa%22%2C%22theme_color%22%3A%22%23667eea%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fraw.githubusercontent.com%2FXenonTheInertG%2Fsomc-routine%2F799309361a6d8e3b078213d0435abf25b63aae0e%2FIMG_1682.png%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
-<meta name="theme-color" content="#667eea">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SOMC 64">
-<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/XenonTheInertG/somc-routine/799309361a6d8e3b078213d0435abf25b63aae0e/IMG_1682.png">
-
 <style>
+    /* ── CSS VARIABLES (light) ── */
+    :root {
+        --bg-page:    #f8f9fa;
+        --bg-card:    #ffffff;
+        --bg-input:   #f8f9fa;
+        --bg-infobox: linear-gradient(135deg,#f0f4ff 0%,#e8eeff 100%);
+        --bg-ann-info:    #f0f4ff;
+        --bg-ann-warning: #fffaf0;
+        --bg-ann-urgent:  #fff5f5;
+        --text-primary:   #1a1a2e;
+        --text-secondary: #4a5568;
+        --text-muted:     #718096;
+        --text-faint:     #a0aec0;
+        --border:         #e2e8f0;
+        --border-info:    #d6e0ff;
+        --shadow-card:    0 4px 20px rgba(0,0,0,0.08);
+        --shadow-card-h:  0 6px 25px rgba(0,0,0,0.12);
+        --class-bg:       linear-gradient(135deg,#ffffff 0%,#f8f9fa 100%);
+        --class-shadow:   0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    /* ── DARK MODE VARIABLES ── */
+    body.dark {
+        --bg-page:    #0f0f1a;
+        --bg-card:    #1a1a2e;
+        --bg-input:   #252540;
+        --bg-infobox: linear-gradient(135deg,#1e2050 0%,#1a1d45 100%);
+        --bg-ann-info:    #1e2050;
+        --bg-ann-warning: #2d1f0a;
+        --bg-ann-urgent:  #2d0f0f;
+        --text-primary:   #e8e8ff;
+        --text-secondary: #a0aec0;
+        --text-muted:     #718096;
+        --text-faint:     #4a5568;
+        --border:         #2d2d50;
+        --border-info:    #3a3d7a;
+        --shadow-card:    0 4px 20px rgba(0,0,0,0.4);
+        --shadow-card-h:  0 6px 25px rgba(0,0,0,0.5);
+        --class-bg:       linear-gradient(135deg,#1e1e38 0%,#1a1a2e 100%);
+        --class-shadow:   0 2px 8px rgba(0,0,0,0.3);
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
-        color: #1a1a2e;
+        color: var(--text-primary);
+        transition: background-color 0.3s, color 0.3s;
+    }
+    body.dark {
+        background: linear-gradient(135deg, #1a1a3e 0%, #2d1b4e 100%);
     }
 
     .main-wrapper {
         max-width: 480px;
         margin: 0 auto;
         min-height: 100vh;
-        background: #f8f9fa;
+        background: var(--bg-page);
         box-shadow: 0 0 50px rgba(0,0,0,0.2);
+        transition: background 0.3s;
     }
 
     /* ── HEADER ── */
     .header {
         background-image: url('https://raw.githubusercontent.com/XenonTheInertG/somc-routine/d7c2ed725eb479da992eab6b89757ed215b8c9d7/IMG_1684.jpeg');
-        background-size: cover;
-        background-position: center;
-        color: white;
-        padding: 20px;
-        position: relative;
-        overflow: hidden;
+        background-size: cover; background-position: center;
+        color: white; padding: 20px;
+        position: relative; overflow: hidden;
     }
     .header::before {
-        content: '';
-        position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(0,0,0,0.4); z-index: 1;
+        content: ''; position: absolute; inset: 0;
+        background: rgba(0,0,0,0.45); z-index: 1;
     }
+    body.dark .header::before { background: rgba(0,0,0,0.65); }
     .header-logo {
-        width: 60px; height: 60px;
-        border-radius: 12px; background: white;
-        padding: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        width: 60px; height: 60px; border-radius: 12px;
+        background: white; padding: 6px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         position: relative; z-index: 2;
     }
     .header-content {
@@ -64,21 +106,35 @@
         letter-spacing: -0.5px; text-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
     .header p {
-        font-size: 14px; opacity: 0.95;
-        font-weight: 400; text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        font-size: 14px; opacity: 0.9; font-weight: 400;
+        text-shadow: 0 1px 4px rgba(0,0,0,0.3);
     }
+
+    /* Dark mode toggle button in header */
+    .dark-toggle {
+        position: relative; z-index: 2;
+        background: rgba(255,255,255,0.2);
+        border: 1.5px solid rgba(255,255,255,0.4);
+        color: white; border-radius: 50%;
+        width: 38px; height: 38px;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer; font-size: 18px;
+        transition: all 0.3s; flex-shrink: 0;
+        backdrop-filter: blur(4px);
+    }
+    .dark-toggle:hover { background: rgba(255,255,255,0.3); transform: scale(1.05); }
 
     /* ── CONTAINER ── */
     .container { padding: 20px; margin-top: -20px; }
 
     /* ── CARD ── */
     .card {
-        background: white; border-radius: 20px;
+        background: var(--bg-card); border-radius: 20px;
         padding: 24px; margin-bottom: 20px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: var(--shadow-card);
+        transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
     }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(0,0,0,0.12); }
+    .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-h); }
     .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
     .card-icon {
         width: 40px; height: 40px;
@@ -87,21 +143,22 @@
         justify-content: center; flex-shrink: 0;
     }
     .card-icon svg { width: 22px; height: 22px; fill: white; }
-    .card-title { font-size: 20px; font-weight: 700; color: #1a1a2e; }
+    .card-title { font-size: 20px; font-weight: 700; color: var(--text-primary); }
 
     /* ── ANNOUNCEMENTS ── */
     .announcement-item {
         padding: 14px 16px; border-radius: 14px;
         margin-bottom: 12px; border-left: 4px solid #667eea;
-        background: #f0f4ff;
+        background: var(--bg-ann-info);
+        transition: background 0.3s;
     }
     .announcement-item:last-child { margin-bottom: 0; }
-    .announcement-item.type-urgent { border-color: #e53e3e; background: #fff5f5; }
-    .announcement-item.type-warning { border-color: #dd6b20; background: #fffaf0; }
-    .announcement-item.type-info { border-color: #667eea; background: #f0f4ff; }
+    .announcement-item.type-urgent { border-color: #e53e3e; background: var(--bg-ann-urgent); }
+    .announcement-item.type-warning { border-color: #dd6b20; background: var(--bg-ann-warning); }
     .ann-title {
-        font-size: 15px; font-weight: 700; margin-bottom: 4px; color: #1a1a2e;
-        display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+        font-size: 15px; font-weight: 700; margin-bottom: 4px;
+        color: var(--text-primary); display: flex; align-items: center;
+        gap: 8px; flex-wrap: wrap;
     }
     .ann-type-chip {
         font-size: 10px; font-weight: 700; padding: 2px 8px;
@@ -110,9 +167,9 @@
     .chip-urgent { background: #e53e3e; }
     .chip-warning { background: #dd6b20; }
     .chip-info { background: #667eea; }
-    .ann-body { font-size: 13px; color: #4a5568; line-height: 1.5; }
-    .ann-date { font-size: 11px; color: #a0aec0; margin-top: 6px; }
-    .ann-loading { text-align: center; color: #a0aec0; font-size: 14px; padding: 16px 0; }
+    .ann-body { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+    .ann-date { font-size: 11px; color: var(--text-faint); margin-top: 6px; }
+    .ann-loading { text-align: center; color: var(--text-faint); font-size: 14px; padding: 16px 0; }
 
     /* ── COUNTDOWN BANNER ── */
     .countdown-banner {
@@ -122,43 +179,66 @@
         display: flex; align-items: center; gap: 12px;
     }
     .countdown-banner.hidden { display: none; }
-    .countdown-banner.ongoing-banner {
-        background: linear-gradient(135deg, #38a169 0%, #276749 100%);
-    }
+    .countdown-banner.ongoing-banner { background: linear-gradient(135deg, #38a169 0%, #276749 100%); }
     .countdown-icon { font-size: 22px; flex-shrink: 0; }
     .countdown-text { flex: 1; }
     .countdown-label { font-size: 12px; opacity: 0.85; font-weight: 500; margin-bottom: 2px; }
     .countdown-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; font-variant-numeric: tabular-nums; }
     .countdown-subject { font-size: 12px; opacity: 0.85; margin-top: 2px; }
 
+    /* ── REMINDER BUTTON ── */
+    .reminder-btn {
+        width: 100%; padding: 14px; font-size: 15px; font-weight: 600;
+        color: white; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none; border-radius: 12px; cursor: pointer;
+        display: flex; align-items: center; justify-content: center; gap: 8px;
+        transition: all 0.3s; box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+        margin-top: 4px;
+    }
+    .reminder-btn:active { transform: scale(0.98); }
+    .reminder-btn.active {
+        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        box-shadow: 0 4px 15px rgba(72,187,120,0.35);
+    }
+    .reminder-btn.denied {
+        background: linear-gradient(135deg, #a0aec0 0%, #718096 100%);
+        box-shadow: none; cursor: not-allowed;
+    }
+    .reminder-status {
+        font-size: 12px; color: var(--text-muted);
+        text-align: center; margin-top: 8px;
+    }
+
     /* ── INPUT ── */
     .input-group { margin-bottom: 20px; }
     .input-group label {
         display: block; font-size: 14px; font-weight: 600;
-        margin-bottom: 10px; color: #4a5568;
+        margin-bottom: 10px; color: var(--text-secondary);
     }
     .input-group input {
         width: 100%; padding: 14px 16px; font-size: 16px;
-        border: 2px solid #e2e8f0; border-radius: 12px;
-        transition: all 0.3s; background: #f8f9fa;
+        border: 2px solid var(--border); border-radius: 12px;
+        transition: all 0.3s; background: var(--bg-input);
+        color: var(--text-primary);
     }
     .input-group input:focus {
-        outline: none; border-color: #667eea; background: white;
+        outline: none; border-color: #667eea;
+        background: var(--bg-card);
         box-shadow: 0 0 0 4px rgba(102,126,234,0.1);
     }
 
     /* ── INFO BOX ── */
     .info-box {
-        background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
-        padding: 18px; border-radius: 14px; margin-bottom: 20px;
-        border: 1px solid #d6e0ff;
+        background: var(--bg-infobox); padding: 18px;
+        border-radius: 14px; margin-bottom: 20px;
+        border: 1px solid var(--border-info);
     }
     .info-row {
         display: flex; justify-content: space-between;
         align-items: center; margin-bottom: 12px;
     }
     .info-row:last-child { margin-bottom: 0; }
-    .info-label { font-size: 14px; color: #5a67d8; font-weight: 500; }
+    .info-label { font-size: 14px; color: #7986d8; font-weight: 500; }
     .badge {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white; padding: 8px 18px; border-radius: 20px;
@@ -173,36 +253,41 @@
     }
     .day-selector::-webkit-scrollbar { display: none; }
     .day-btn {
-        padding: 10px 18px; border: 2px solid #e2e8f0;
-        background: white; border-radius: 12px; font-size: 14px;
+        padding: 10px 18px; border: 2px solid var(--border);
+        background: var(--bg-card); border-radius: 12px; font-size: 14px;
         font-weight: 600; cursor: pointer; white-space: nowrap;
-        transition: all 0.3s; color: #4a5568;
+        transition: all 0.3s; color: var(--text-secondary);
     }
     .day-btn.active {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white; border-color: transparent;
         box-shadow: 0 4px 12px rgba(102,126,234,0.3);
     }
-    .day-btn.off { background: #fed7d7; color: #c53030; border-color: #fc8181; }
+    .day-btn.off { background: #2d1515; color: #fc8181; border-color: #6b2020; }
+    body:not(.dark) .day-btn.off { background: #fed7d7; color: #c53030; border-color: #fc8181; }
 
     /* ── CLASS ITEMS ── */
     .class-item {
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-        padding: 18px; border-radius: 16px; margin-bottom: 14px;
-        border-left: 4px solid #667eea; transition: all 0.2s;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        background: var(--class-bg); padding: 18px; border-radius: 16px;
+        margin-bottom: 14px; border-left: 4px solid #667eea;
+        transition: all 0.2s; box-shadow: var(--class-shadow);
     }
-    .class-item:hover { transform: translateX(4px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .class-item:hover { transform: translateX(4px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
     .class-item.ongoing {
         border-left-color: #38a169;
+        background: linear-gradient(135deg, #0d2b1a 0%, #0a2015 100%);
+        box-shadow: 0 4px 16px rgba(56,161,105,0.25);
+    }
+    body:not(.dark) .class-item.ongoing {
         background: linear-gradient(135deg, #f0fff4 0%, #e6ffed 100%);
-        box-shadow: 0 4px 16px rgba(56,161,105,0.2);
     }
     .class-item.next-up {
         border-left-color: #d69e2e;
+        background: linear-gradient(135deg, #2b240a 0%, #22190a 100%);
+    }
+    body:not(.dark) .class-item.next-up {
         background: linear-gradient(135deg, #fffff0 0%, #fefce8 100%);
     }
-
     .class-header {
         display: flex; justify-content: space-between;
         align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;
@@ -212,8 +297,8 @@
         display: flex; align-items: center; gap: 6px;
     }
     .class-time svg { width: 16px; height: 16px; fill: #667eea; }
-    .class-time.ongoing-time { color: #38a169; }
-    .class-time.ongoing-time svg { fill: #38a169; }
+    .class-time.ongoing-time { color: #48bb78; }
+    .class-time.ongoing-time svg { fill: #48bb78; }
     .class-time.nextup-time { color: #d69e2e; }
     .class-time.nextup-time svg { fill: #d69e2e; }
 
@@ -223,41 +308,54 @@
         letter-spacing: 0.5px; margin-left: 4px;
     }
     .status-ongoing { background: #38a169; animation: pulse 2s infinite; }
-    .status-next { background: #d69e2e; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.55; } }
+    .status-next    { background: #d69e2e; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.55} }
 
     .type-badge {
         padding: 6px 12px; border-radius: 8px;
         font-size: 11px; font-weight: 700; color: white;
         text-transform: uppercase; letter-spacing: 0.5px;
     }
-    .type-lecture { background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%); }
-    .type-tutorial { background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); }
-    .type-practical { background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%); }
-    .type-dissection { background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%); }
-    .type-demonstration { background: linear-gradient(135deg, #9f7aea 0%, #805ad5 100%); }
+    .type-lecture     { background: linear-gradient(135deg,#4299e1 0%,#3182ce 100%); }
+    .type-tutorial    { background: linear-gradient(135deg,#48bb78 0%,#38a169 100%); }
+    .type-practical   { background: linear-gradient(135deg,#ed8936 0%,#dd6b20 100%); }
+    .type-dissection  { background: linear-gradient(135deg,#f56565 0%,#e53e3e 100%); }
+    .type-demonstration { background: linear-gradient(135deg,#9f7aea 0%,#805ad5 100%); }
 
-    .class-subject { font-size: 18px; font-weight: 700; margin: 10px 0; color: #1a1a2e; }
-    .class-details { display: flex; gap: 16px; font-size: 13px; color: #718096; font-weight: 500; flex-wrap: wrap; }
+    .class-subject { font-size: 18px; font-weight: 700; margin: 10px 0; color: var(--text-primary); }
+    .class-details { display: flex; gap: 16px; font-size: 13px; color: var(--text-muted); font-weight: 500; flex-wrap: wrap; }
     .class-detail-item { display: flex; align-items: center; gap: 6px; }
-    .class-detail-item svg { width: 14px; height: 14px; fill: #a0aec0; }
+    .class-detail-item svg { width: 14px; height: 14px; fill: var(--text-faint); }
 
     /* ── EMPTY STATE ── */
-    .empty-state { text-align: center; padding: 50px 20px; color: #a0aec0; }
-    .empty-state svg { width: 80px; height: 80px; fill: #e2e8f0; margin-bottom: 16px; }
-    .empty-state-text { font-size: 16px; font-weight: 600; color: #718096; }
+    .empty-state { text-align: center; padding: 50px 20px; }
+    .empty-state svg { width: 80px; height: 80px; fill: var(--border); margin-bottom: 16px; }
+    .empty-state-text { font-size: 16px; font-weight: 600; color: var(--text-muted); }
 
     /* ── FOOTER ── */
     .footer {
-        text-align: center; padding: 30px 20px; color: #718096;
-        font-size: 13px; background: white; margin: 20px;
-        border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        text-align: center; padding: 30px 20px; color: var(--text-muted);
+        font-size: 13px; background: var(--bg-card); margin: 20px;
+        border-radius: 20px; box-shadow: var(--shadow-card);
+        transition: background 0.3s;
     }
     .footer-credit {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         background-clip: text; font-weight: 700;
     }
+
+    /* ── TOAST ── */
+    .toast {
+        position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+        background: #1a1a2e; color: white; padding: 12px 20px;
+        border-radius: 12px; font-size: 14px; font-weight: 600;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.3); z-index: 9999;
+        opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        white-space: nowrap;
+    }
+    body.dark .toast { background: #e8e8ff; color: #1a1a2e; }
+    .toast.show { opacity: 1; }
 </style>
 ```
 
@@ -274,12 +372,13 @@
             <h1>SOMC 64 Class Routine</h1>
             <p>Stay updated with your class timings</p>
         </div>
+        <button class="dark-toggle" id="darkToggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
     </div>
 </div>
 
 <div class="container">
 
-    <!-- ANNOUNCEMENTS CARD -->
+    <!-- ANNOUNCEMENTS -->
     <div class="card">
         <div class="card-header">
             <div class="card-icon">
@@ -287,12 +386,10 @@
             </div>
             <div class="card-title">Announcements</div>
         </div>
-        <div id="announcementList">
-            <div class="ann-loading">Loading announcements…</div>
-        </div>
+        <div id="announcementList"><div class="ann-loading">Loading announcements…</div></div>
     </div>
 
-    <!-- STUDENT INFO CARD -->
+    <!-- STUDENT INFO -->
     <div class="card">
         <div class="card-header">
             <div class="card-icon">
@@ -300,12 +397,10 @@
             </div>
             <div class="card-title">Student Information</div>
         </div>
-
         <div class="input-group">
             <label>Roll Number (1–229)</label>
             <input type="number" id="rollInput" placeholder="Enter your roll number" min="1" max="229">
         </div>
-
         <div id="infoBox" style="display:none;">
             <div class="info-box">
                 <div class="info-row">
@@ -317,10 +412,16 @@
                     <span class="badge" id="anatomyBadge">-</span>
                 </div>
             </div>
+
+            <!-- CLASS REMINDER -->
+            <button class="reminder-btn" id="reminderBtn" onclick="toggleReminders()">
+                🔔 <span id="reminderBtnText">Enable Class Reminders</span>
+            </button>
+            <div class="reminder-status" id="reminderStatus">Get notified 10 min before each class</div>
         </div>
     </div>
 
-    <!-- SCHEDULE CARD -->
+    <!-- SCHEDULE -->
     <div class="card">
         <div class="card-header">
             <div class="card-icon">
@@ -343,7 +444,6 @@
         <div id="classList"></div>
     </div>
 
-    <!-- FOOTER -->
     <div class="footer">
         Webapp by <a href="https://github.com/XenonTheInertG" target="_blank" rel="noopener noreferrer" class="footer-credit" style="text-decoration:none;">Mahin, SOMC'63</a>
     </div>
@@ -352,243 +452,303 @@
 
 </div>
 
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
 <script>
     // ── STATE ──────────────────────────────────────────────
-    let rollNumber = '';
-    let batch = '';
-    let anatomyBatch = '';
-    let selectedDay = '';
-    let countdownInterval = null;
-    let scheduleRefreshTimer = null;
+    let batch = '', anatomyBatch = '', selectedDay = '';
+    let countdownInterval = null, scheduleRefreshTimer = null;
+    let reminderTimeouts = [];
+    let remindersEnabled = false;
 
     // ── BATCH RANGES ───────────────────────────────────────
     const batchRanges = {
-        'A': { start: 1,   end: 58  },
-        'B': { start: 59,  end: 116 },
-        'C': { start: 117, end: 174 },
-        'D': { start: 175, end: 229 }
+        A:{start:1,end:58}, B:{start:59,end:116},
+        C:{start:117,end:174}, D:{start:175,end:229}
     };
     const anatomyBatchRanges = {
-        'A': { start: 1,   end: 46  },
-        'B': { start: 47,  end: 92  },
-        'C': { start: 93,  end: 138 },
-        'D': { start: 139, end: 184 },
-        'E': { start: 185, end: 229 }
+        A:{start:1,end:46}, B:{start:47,end:92}, C:{start:93,end:138},
+        D:{start:139,end:184}, E:{start:185,end:229}
     };
 
-    // ── SCHEDULE DATA ──────────────────────────────────────
+    // ── SCHEDULE ───────────────────────────────────────────
     const schedule = {
         Saturday: [
-            { time: '08:00', duration: 60, classes: [
-                { batch: 'ALL', subject: 'Biochemistry Tutorial', venue: 'All Batch', type: 'Tutorial' }
+            {time:'08:00',duration:60,classes:[{batch:'ALL',subject:'Biochemistry Tutorial',venue:'All Batch',type:'Tutorial'}]},
+            {time:'09:00',duration:60,classes:[{batch:'ALL',subject:'Physiology Lecture',venue:'Gallery-2',type:'Lecture'}]},
+            {time:'10:30',duration:120,classes:[
+                {batch:'A',subject:'Biochemistry Tutorial',venue:'Tutorial Room',type:'Tutorial'},
+                {batch:'B',subject:'Physiology Tutorial',venue:'Tutorial Room',type:'Tutorial'},
+                {batch:'C',subject:'Biochemistry Practical',venue:'Lab',type:'Practical'},
+                {batch:'D',subject:'Physiology Practical',venue:'Lab',type:'Practical'}
             ]},
-            { time: '09:00', duration: 60, classes: [
-                { batch: 'ALL', subject: 'Physiology Lecture', venue: 'Gallery-2', type: 'Lecture' }
-            ]},
-            { time: '10:30', duration: 120, classes: [
-                { batch: 'A', subject: 'Biochemistry Tutorial', venue: 'Tutorial Room', type: 'Tutorial' },
-                { batch: 'B', subject: 'Physiology Tutorial', venue: 'Tutorial Room', type: 'Tutorial' },
-                { batch: 'C', subject: 'Biochemistry Practical', venue: 'Lab', type: 'Practical' },
-                { batch: 'D', subject: 'Physiology Practical', venue: 'Lab', type: 'Practical' }
-            ]},
-            { time: '12:30', duration: 120, classes: [
-                { anatomyBatch: 'B', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'C', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'D', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'E', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'A', subject: 'Histology-A', venue: 'Histology Lab', type: 'Practical' }
+            {time:'12:30',duration:120,classes:[
+                {anatomyBatch:'B',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'C',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'D',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'E',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'A',subject:'Histology-A',venue:'Histology Lab',type:'Practical'}
             ]}
         ],
         Sunday: [
-            { time: '08:00', duration: 60, classes: [
-                { batch: 'ALL', subject: 'Anatomy Demonstration', venue: 'All Batch', type: 'Demonstration' }
+            {time:'08:00',duration:60,classes:[{batch:'ALL',subject:'Anatomy Demonstration',venue:'All Batch',type:'Demonstration'}]},
+            {time:'09:00',duration:60,classes:[{batch:'ALL',subject:'Biochemistry Lecture',venue:'Gallery-2',type:'Lecture'}]},
+            {time:'10:30',duration:120,classes:[
+                {batch:'A',subject:'Physiology Tutorial',venue:'Tutorial Room',type:'Tutorial'},
+                {batch:'B',subject:'Biochemistry Practical',venue:'Lab',type:'Practical'},
+                {batch:'C',subject:'Physiology Practical',venue:'Lab',type:'Practical'},
+                {batch:'D',subject:'Biochemistry Tutorial',venue:'Tutorial Room',type:'Tutorial'}
             ]},
-            { time: '09:00', duration: 60, classes: [
-                { batch: 'ALL', subject: 'Biochemistry Lecture', venue: 'Gallery-2', type: 'Lecture' }
-            ]},
-            { time: '10:30', duration: 120, classes: [
-                { batch: 'A', subject: 'Physiology Tutorial', venue: 'Tutorial Room', type: 'Tutorial' },
-                { batch: 'B', subject: 'Biochemistry Practical', venue: 'Lab', type: 'Practical' },
-                { batch: 'C', subject: 'Physiology Practical', venue: 'Lab', type: 'Practical' },
-                { batch: 'D', subject: 'Biochemistry Tutorial', venue: 'Tutorial Room', type: 'Tutorial' }
-            ]},
-            { time: '12:30', duration: 120, classes: [
-                { anatomyBatch: 'A', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'C', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'D', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'E', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'B', subject: 'Histology-B', venue: 'Histology Lab', type: 'Practical' }
+            {time:'12:30',duration:120,classes:[
+                {anatomyBatch:'A',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'C',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'D',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'E',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'B',subject:'Histology-B',venue:'Histology Lab',type:'Practical'}
             ]}
         ],
         Monday: [
-            { time: '08:00', duration: 60, classes: [
-                { batch: 'ALL', subject: 'Physiology Lecture', venue: 'Gallery-2', type: 'Lecture' }
+            {time:'08:00',duration:60,classes:[{batch:'ALL',subject:'Physiology Lecture',venue:'Gallery-2',type:'Lecture'}]},
+            {time:'09:00',duration:60,classes:[{batch:'ALL',subject:'Anatomy Lecture',venue:'Gallery-1',type:'Lecture'}]},
+            {time:'10:30',duration:120,classes:[
+                {anatomyBatch:'A',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'B',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'D',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'E',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'C',subject:'Histology-C',venue:'Histology Lab',type:'Practical'}
             ]},
-            { time: '09:00', duration: 60, classes: [
-                { batch: 'ALL', subject: 'Anatomy Lecture', venue: 'Gallery-1', type: 'Lecture' }
-            ]},
-            { time: '10:30', duration: 120, classes: [
-                { anatomyBatch: 'A', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'B', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'D', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'E', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'C', subject: 'Histology-C', venue: 'Histology Lab', type: 'Practical' }
-            ]},
-            { time: '12:30', duration: 120, classes: [
-                { batch: 'A', subject: 'Biochemistry Practical', venue: 'Lab', type: 'Practical' },
-                { batch: 'B', subject: 'Physiology Practical', venue: 'Lab', type: 'Practical' },
-                { batch: 'C', subject: 'Biochemistry Tutorial', venue: 'Tutorial Room', type: 'Tutorial' },
-                { batch: 'D', subject: 'Physiology Tutorial', venue: 'Tutorial Room', type: 'Tutorial' }
+            {time:'12:30',duration:120,classes:[
+                {batch:'A',subject:'Biochemistry Practical',venue:'Lab',type:'Practical'},
+                {batch:'B',subject:'Physiology Practical',venue:'Lab',type:'Practical'},
+                {batch:'C',subject:'Biochemistry Tutorial',venue:'Tutorial Room',type:'Tutorial'},
+                {batch:'D',subject:'Physiology Tutorial',venue:'Tutorial Room',type:'Tutorial'}
             ]}
         ],
         Tuesday: [
-            { time: '08:00', duration: 60, classes: [
-                { batch: 'ALL', subject: 'Anatomy Demonstration', venue: 'All Batch', type: 'Demonstration' }
+            {time:'08:00',duration:60,classes:[{batch:'ALL',subject:'Anatomy Demonstration',venue:'All Batch',type:'Demonstration'}]},
+            {time:'09:00',duration:60,classes:[{batch:'ALL',subject:'Physiology Lecture',venue:'Gallery-1',type:'Lecture'}]},
+            {time:'10:30',duration:120,classes:[
+                {anatomyBatch:'A',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'B',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'C',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'E',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'D',subject:'Histology-D',venue:'Histology Lab',type:'Practical'}
             ]},
-            { time: '09:00', duration: 60, classes: [
-                { batch: 'ALL', subject: 'Physiology Lecture', venue: 'Gallery-1', type: 'Lecture' }
-            ]},
-            { time: '10:30', duration: 120, classes: [
-                { anatomyBatch: 'A', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'B', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'C', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'E', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'D', subject: 'Histology-D', venue: 'Histology Lab', type: 'Practical' }
-            ]},
-            { time: '12:30', duration: 120, classes: [
-                { batch: 'A', subject: 'Physiology Practical', venue: 'Lab', type: 'Practical' },
-                { batch: 'B', subject: 'Biochemistry Tutorial', venue: 'Tutorial Room', type: 'Tutorial' },
-                { batch: 'C', subject: 'Physiology Tutorial', venue: 'Tutorial Room', type: 'Tutorial' },
-                { batch: 'D', subject: 'Biochemistry Practical', venue: 'Lab', type: 'Practical' }
+            {time:'12:30',duration:120,classes:[
+                {batch:'A',subject:'Physiology Practical',venue:'Lab',type:'Practical'},
+                {batch:'B',subject:'Biochemistry Tutorial',venue:'Tutorial Room',type:'Tutorial'},
+                {batch:'C',subject:'Physiology Tutorial',venue:'Tutorial Room',type:'Tutorial'},
+                {batch:'D',subject:'Biochemistry Practical',venue:'Lab',type:'Practical'}
             ]}
         ],
         Wednesday: [
-            { time: '08:00', duration: 60, classes: [
-                { batch: 'ALL', subject: 'Physiology Tutorial', venue: 'All Batch', type: 'Tutorial' }
+            {time:'08:00',duration:60,classes:[{batch:'ALL',subject:'Physiology Tutorial',venue:'All Batch',type:'Tutorial'}]},
+            {time:'09:00',duration:60,classes:[{batch:'ALL',subject:'Biochemistry Lecture',venue:'Gallery-2',type:'Lecture'}]},
+            {time:'10:30',duration:120,classes:[
+                {batch:'A',subject:'Physiology Tutorial',venue:'Tutorial Room',type:'Tutorial'},
+                {batch:'C',subject:'Physiology Tutorial',venue:'Tutorial Room',type:'Tutorial'},
+                {batch:'B',subject:'Biochemistry Tutorial',venue:'Tutorial Room',type:'Tutorial'},
+                {batch:'D',subject:'Biochemistry Tutorial',venue:'Tutorial Room',type:'Tutorial'}
             ]},
-            { time: '09:00', duration: 60, classes: [
-                { batch: 'ALL', subject: 'Biochemistry Lecture', venue: 'Gallery-2', type: 'Lecture' }
-            ]},
-            { time: '10:30', duration: 120, classes: [
-                { batch: 'A', subject: 'Physiology Tutorial', venue: 'Tutorial Room', type: 'Tutorial' },
-                { batch: 'C', subject: 'Physiology Tutorial', venue: 'Tutorial Room', type: 'Tutorial' },
-                { batch: 'B', subject: 'Biochemistry Tutorial', venue: 'Tutorial Room', type: 'Tutorial' },
-                { batch: 'D', subject: 'Biochemistry Tutorial', venue: 'Tutorial Room', type: 'Tutorial' }
-            ]},
-            { time: '12:30', duration: 120, classes: [
-                { anatomyBatch: 'B', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'C', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'D', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'E', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' },
-                { anatomyBatch: 'A', subject: 'Histology-A', venue: 'Histology Lab', type: 'Practical' }
+            {time:'12:30',duration:120,classes:[
+                {anatomyBatch:'B',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'C',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'D',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'E',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'},
+                {anatomyBatch:'A',subject:'Histology-A',venue:'Histology Lab',type:'Practical'}
             ]}
         ],
         Thursday: [
-            { time: '08:00', duration: 60, classes: [
-                { batch: 'ALL', subject: 'Biochemistry Lecture', venue: 'Gallery-3', type: 'Lecture' }
-            ]},
-            { time: '09:00', duration: 60, classes: [
-                { batch: 'ALL', subject: 'Anatomy Lecture', venue: 'Gallery-2', type: 'Lecture' }
-            ]},
-            { time: '10:30', duration: 120, classes: [
-                { batch: 'ALL', subject: 'Anatomy Dissection', venue: 'Dissection Hall', type: 'Dissection' }
-            ]},
-            { time: '12:30', duration: 120, classes: [
-                { batch: 'B', subject: 'Physiology Tutorial', venue: 'Tutorial Room', type: 'Tutorial' },
-                { batch: 'D', subject: 'Physiology Tutorial', venue: 'Tutorial Room', type: 'Tutorial' },
-                { batch: 'A', subject: 'Biochemistry Tutorial', venue: 'Tutorial Room', type: 'Tutorial' },
-                { batch: 'C', subject: 'Biochemistry Tutorial', venue: 'Tutorial Room', type: 'Tutorial' }
+            {time:'08:00',duration:60,classes:[{batch:'ALL',subject:'Biochemistry Lecture',venue:'Gallery-3',type:'Lecture'}]},
+            {time:'09:00',duration:60,classes:[{batch:'ALL',subject:'Anatomy Lecture',venue:'Gallery-2',type:'Lecture'}]},
+            {time:'10:30',duration:120,classes:[{batch:'ALL',subject:'Anatomy Dissection',venue:'Dissection Hall',type:'Dissection'}]},
+            {time:'12:30',duration:120,classes:[
+                {batch:'B',subject:'Physiology Tutorial',venue:'Tutorial Room',type:'Tutorial'},
+                {batch:'D',subject:'Physiology Tutorial',venue:'Tutorial Room',type:'Tutorial'},
+                {batch:'A',subject:'Biochemistry Tutorial',venue:'Tutorial Room',type:'Tutorial'},
+                {batch:'C',subject:'Biochemistry Tutorial',venue:'Tutorial Room',type:'Tutorial'}
             ]}
         ],
         Friday: []
     };
 
-    // ── ANNOUNCEMENTS ──────────────────────────────────────
-    // In your repo, create announcements.json at the root:
-    // [{ "title": "...", "body": "...", "date": "YYYY-MM-DD", "type": "info|warning|urgent" }]
-    const ANNOUNCEMENTS_URL =
-        'https://raw.githubusercontent.com/XenonTheInertG/somc-routine/main/announcements.json';
+    // ── DARK MODE ──────────────────────────────────────────
+    function toggleDark() {
+        const dark = document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', dark ? '1' : '0');
+        document.getElementById('darkToggle').textContent = dark ? '☀️' : '🌙';
+    }
+    function applyDark() {
+        const saved = localStorage.getItem('darkMode');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const dark = saved !== null ? saved === '1' : prefersDark;
+        if (dark) document.body.classList.add('dark');
+        document.getElementById('darkToggle').textContent = dark ? '☀️' : '🌙';
+    }
+
+    // ── TOAST ──────────────────────────────────────────────
+    let toastTimer = null;
+    function showToast(msg) {
+        const el = document.getElementById('toast');
+        el.textContent = msg; el.classList.add('show');
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+    }
+
+    // ── REMINDERS ─────────────────────────────────────────
+    function clearReminderTimeouts() {
+        reminderTimeouts.forEach(t => clearTimeout(t));
+        reminderTimeouts = [];
+    }
+
+    function scheduleReminders() {
+        clearReminderTimeouts();
+        if (!remindersEnabled || !batch || !anatomyBatch) return;
+
+        const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const todayName = DAYS[new Date().getDay()];
+        const myClasses = getMyClasses(todayName);
+        const now = new Date();
+        let scheduled = 0;
+
+        myClasses.forEach(cls => {
+            const [h, m] = cls.time.split(':').map(Number);
+            const classDate = new Date();
+            classDate.setHours(h, m, 0, 0);
+            const reminderDate = new Date(classDate.getTime() - 10 * 60 * 1000); // 10 min before
+            const msUntil = reminderDate - now;
+
+            if (msUntil > 0) {
+                const t = setTimeout(() => {
+                    if ('Notification' in window && Notification.permission === 'granted') {
+                        new Notification('🔔 Class in 10 minutes', {
+                            body: `${cls.subject} at ${formatTime(cls.time)} — ${cls.venue}`,
+                            icon: 'https://raw.githubusercontent.com/XenonTheInertG/somc-routine/799309361a6d8e3b078213d0435abf25b63aae0e/IMG_1682.png',
+                            badge: 'https://raw.githubusercontent.com/XenonTheInertG/somc-routine/799309361a6d8e3b078213d0435abf25b63aae0e/IMG_1682.png'
+                        });
+                    }
+                }, msUntil);
+                reminderTimeouts.push(t);
+                scheduled++;
+            }
+        });
+
+        document.getElementById('reminderStatus').textContent =
+            scheduled > 0
+                ? `✅ ${scheduled} reminder${scheduled > 1 ? 's' : ''} set for today`
+                : 'No upcoming classes to remind today';
+    }
+
+    async function toggleReminders() {
+        const btn = document.getElementById('reminderBtn');
+        const txt = document.getElementById('reminderBtnText');
+        const status = document.getElementById('reminderStatus');
+
+        if (!batch || !anatomyBatch) {
+            showToast('Enter your roll number first');
+            return;
+        }
+
+        if (!('Notification' in window)) {
+            btn.classList.add('denied');
+            txt.textContent = 'Not supported on this browser';
+            return;
+        }
+
+        if (Notification.permission === 'denied') {
+            btn.classList.add('denied');
+            txt.textContent = 'Notifications blocked — check browser settings';
+            status.textContent = 'Allow notifications in your browser/OS settings';
+            return;
+        }
+
+        if (!remindersEnabled) {
+            const perm = Notification.permission === 'granted'
+                ? 'granted'
+                : await Notification.requestPermission();
+
+            if (perm === 'granted') {
+                remindersEnabled = true;
+                localStorage.setItem('reminders', '1');
+                btn.classList.add('active');
+                txt.textContent = 'Reminders Enabled';
+                scheduleReminders();
+                showToast('🔔 Reminders set for today\'s classes');
+            } else {
+                btn.classList.add('denied');
+                txt.textContent = 'Permission denied';
+                status.textContent = 'Allow notifications in your browser settings';
+            }
+        } else {
+            remindersEnabled = false;
+            localStorage.setItem('reminders', '0');
+            clearReminderTimeouts();
+            btn.classList.remove('active', 'denied');
+            txt.textContent = 'Enable Class Reminders';
+            status.textContent = 'Get notified 10 min before each class';
+            showToast('🔕 Reminders disabled');
+        }
+    }
+
+    // ── ANNOUNCEMENTS ─────────────────────────────────────
+    const ANNOUNCEMENTS_URL = 'https://raw.githubusercontent.com/XenonTheInertG/somc-routine/main/announcements.json';
 
     async function loadAnnouncements() {
         const el = document.getElementById('announcementList');
         try {
             const res = await fetch(ANNOUNCEMENTS_URL + '?t=' + Date.now());
-            if (!res.ok) throw new Error('not found');
+            if (!res.ok) throw new Error();
             const data = await res.json();
             if (!Array.isArray(data) || !data.length) {
                 el.innerHTML = '<div class="ann-loading">No announcements right now.</div>';
                 return;
             }
             el.innerHTML = data.map(a => `
-                <div class="announcement-item type-${a.type || 'info'}">
-                    <div class="ann-title">
-                        ${escHtml(a.title)}
-                        <span class="ann-type-chip chip-${a.type || 'info'}">${a.type || 'info'}</span>
+                <div class="announcement-item type-${a.type||'info'}">
+                    <div class="ann-title">${escHtml(a.title)}
+                        <span class="ann-type-chip chip-${a.type||'info'}">${a.type||'info'}</span>
                     </div>
                     <div class="ann-body">${escHtml(a.body)}</div>
                     ${a.date ? `<div class="ann-date">${formatDate(a.date)}</div>` : ''}
-                </div>
-            `).join('');
+                </div>`).join('');
         } catch {
             el.innerHTML = '<div class="ann-loading">No announcements right now.</div>';
         }
     }
 
-    function escHtml(str) {
-        return String(str)
-            .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-            .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    // ── HELPERS ───────────────────────────────────────────
+    function escHtml(s) {
+        return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
-
-    function formatDate(dateStr) {
-        try {
-            return new Date(dateStr).toLocaleDateString('en-GB',
-                { day: 'numeric', month: 'short', year: 'numeric' });
-        } catch { return dateStr; }
+    function formatDate(d) {
+        try { return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
+        catch { return d; }
     }
-
-    // ── TIME HELPERS ───────────────────────────────────────
-    function timeToMinutes(t) {
-        const [h, m] = t.split(':').map(Number);
-        return h * 60 + m;
+    function timeToMinutes(t) { const [h,m]=t.split(':').map(Number); return h*60+m; }
+    function nowMinutes() { const n=new Date(); return n.getHours()*60+n.getMinutes(); }
+    function formatTime(t) {
+        const [h,m]=t.split(':').map(Number);
+        const p=h>=12?'PM':'AM', dh=h>12?h-12:h===0?12:h;
+        return `${dh}:${m.toString().padStart(2,'0')} ${p}`;
     }
-    function nowMinutes() {
-        const n = new Date();
-        return n.getHours() * 60 + n.getMinutes();
+    function formatCountdown(s) {
+        const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sc=s%60;
+        if(h>0) return `${h}h ${m}m`;
+        if(m>0) return `${m}m ${sc.toString().padStart(2,'0')}s`;
+        return `${sc}s`;
     }
-    function nowSeconds() {
-        return new Date().getSeconds();
-    }
-    function formatTime(time) {
-        const [h, m] = time.split(':').map(Number);
-        const period = h >= 12 ? 'PM' : 'AM';
-        const dh = h > 12 ? h - 12 : h === 0 ? 12 : h;
-        return `${dh}:${m.toString().padStart(2,'0')} ${period}`;
-    }
-    function formatCountdown(totalSec) {
-        const h = Math.floor(totalSec / 3600);
-        const m = Math.floor((totalSec % 3600) / 60);
-        const s = totalSec % 60;
-        if (h > 0) return `${h}h ${m}m`;
-        if (m > 0) return `${m}m ${s.toString().padStart(2,'0')}s`;
-        return `${s}s`;
-    }
-
-    // ── MY CLASSES FOR A DAY ───────────────────────────────
     function getMyClasses(day) {
-        if (!batch || !anatomyBatch) return [];
-        const result = [];
-        (schedule[day] || []).forEach(slot => {
-            slot.classes.forEach(cls => {
-                if (cls.batch === 'ALL' || cls.batch === batch || cls.anatomyBatch === anatomyBatch) {
-                    // push only once per slot
-                    if (!result.find(r => r.time === slot.time)) {
-                        result.push({ ...cls, time: slot.time, duration: slot.duration });
-                    }
-                }
+        if(!batch||!anatomyBatch) return [];
+        const res=[];
+        (schedule[day]||[]).forEach(slot=>{
+            slot.classes.forEach(cls=>{
+                if((cls.batch==='ALL'||cls.batch===batch||cls.anatomyBatch===anatomyBatch)&&!res.find(r=>r.time===slot.time))
+                    res.push({...cls,time:slot.time,duration:slot.duration});
             });
         });
-        return result;
+        return res;
     }
 
     // ── COUNTDOWN ─────────────────────────────────────────
@@ -596,224 +756,158 @@
         const banner = document.getElementById('countdownBanner');
         const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
         const todayName = DAYS[new Date().getDay()];
-
-        if (selectedDay !== todayName || !batch || !anatomyBatch || selectedDay === 'Friday') {
-            banner.classList.add('hidden');
-            return;
+        if (selectedDay!==todayName||!batch||!anatomyBatch||selectedDay==='Friday') {
+            banner.classList.add('hidden'); return;
         }
-
-        const now = nowMinutes();
-        const sec = nowSeconds();
-        const myClasses = getMyClasses(todayName);
-
-        const ongoing = myClasses.find(c => {
-            const s = timeToMinutes(c.time);
-            return now >= s && now < s + c.duration;
-        });
-        const next = myClasses.find(c => timeToMinutes(c.time) > now);
-
-        if (ongoing) {
-            const endMin = timeToMinutes(ongoing.time) + ongoing.duration;
-            const remaining = (endMin - now) * 60 - sec;
-            banner.classList.remove('hidden');
-            banner.classList.add('ongoing-banner');
-            document.getElementById('countdownIcon').textContent = '🟢';
-            document.getElementById('countdownLabel').textContent = 'Ongoing — ends in';
-            document.getElementById('countdownValue').textContent = formatCountdown(Math.max(0, remaining));
-            document.getElementById('countdownSubject').textContent = ongoing.subject;
-        } else if (next) {
-            const startMin = timeToMinutes(next.time);
-            const remaining = (startMin - now) * 60 - sec;
-            banner.classList.remove('hidden');
-            banner.classList.remove('ongoing-banner');
-            document.getElementById('countdownIcon').textContent = '⏱️';
-            document.getElementById('countdownLabel').textContent = 'Next class in';
-            document.getElementById('countdownValue').textContent = formatCountdown(Math.max(0, remaining));
-            document.getElementById('countdownSubject').textContent = next.subject;
+        const now=nowMinutes(), sec=new Date().getSeconds();
+        const my=getMyClasses(todayName);
+        const ongoing=my.find(c=>{const s=timeToMinutes(c.time);return now>=s&&now<s+c.duration;});
+        const next=my.find(c=>timeToMinutes(c.time)>now);
+        if(ongoing){
+            const rem=(timeToMinutes(ongoing.time)+ongoing.duration-now)*60-sec;
+            banner.classList.remove('hidden','ongoing-banner'); banner.classList.add('ongoing-banner');
+            document.getElementById('countdownIcon').textContent='🟢';
+            document.getElementById('countdownLabel').textContent='Ongoing — ends in';
+            document.getElementById('countdownValue').textContent=formatCountdown(Math.max(0,rem));
+            document.getElementById('countdownSubject').textContent=ongoing.subject;
+        } else if(next){
+            const rem=(timeToMinutes(next.time)-now)*60-sec;
+            banner.classList.remove('hidden','ongoing-banner');
+            document.getElementById('countdownIcon').textContent='⏱️';
+            document.getElementById('countdownLabel').textContent='Next class in';
+            document.getElementById('countdownValue').textContent=formatCountdown(Math.max(0,rem));
+            document.getElementById('countdownSubject').textContent=next.subject;
         } else {
-            banner.classList.add('hidden');
-            banner.classList.remove('ongoing-banner');
+            banner.classList.add('hidden'); banner.classList.remove('ongoing-banner');
         }
     }
 
     // ── SCHEDULE RENDER ────────────────────────────────────
     function updateSchedule() {
-        if (scheduleRefreshTimer) { clearTimeout(scheduleRefreshTimer); scheduleRefreshTimer = null; }
-        const container = document.getElementById('classList');
+        if(scheduleRefreshTimer){clearTimeout(scheduleRefreshTimer);scheduleRefreshTimer=null;}
+        const container=document.getElementById('classList');
 
-        if (!batch || !anatomyBatch) {
-            container.innerHTML = `<div class="empty-state">
-                <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
-                <div class="empty-state-text">Enter your roll number to see your schedule</div>
-            </div>`;
+        if(!batch||!anatomyBatch){
+            container.innerHTML=`<div class="empty-state"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+            <div class="empty-state-text">Enter your roll number to see your schedule</div></div>`;
             return;
         }
-
-        if (selectedDay === 'Friday') {
-            container.innerHTML = `<div class="empty-state">
-                <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
-                <div class="empty-state-text">Friday is off — No classes today!</div>
-            </div>`;
+        if(selectedDay==='Friday'){
+            container.innerHTML=`<div class="empty-state"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+            <div class="empty-state-text">Friday is off — No classes today!</div></div>`;
             return;
         }
+        const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const todayName=DAYS[new Date().getDay()];
+        const isToday=selectedDay===todayName;
+        const now=nowMinutes();
+        let nextClassTime=null;
+        if(isToday){const f=getMyClasses(selectedDay).find(c=>timeToMinutes(c.time)>now);if(f)nextClassTime=f.time;}
 
-        const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-        const todayName = DAYS[new Date().getDay()];
-        const isToday = selectedDay === todayName;
-        const now = nowMinutes();
-
-        // Determine next upcoming class time
-        let nextClassTime = null;
-        if (isToday) {
-            const fut = getMyClasses(selectedDay).find(c => timeToMinutes(c.time) > now);
-            if (fut) nextClassTime = fut.time;
-        }
-
-        const daySchedule = schedule[selectedDay] || [];
-        let html = '';
-        const rendered = new Set();
-
-        daySchedule.forEach(slot => {
-            slot.classes.forEach(cls => {
-                if (rendered.has(slot.time)) return;
-                if (!(cls.batch === 'ALL' || cls.batch === batch || cls.anatomyBatch === anatomyBatch)) return;
-
+        let html='';
+        const rendered=new Set();
+        (schedule[selectedDay]||[]).forEach(slot=>{
+            slot.classes.forEach(cls=>{
+                if(rendered.has(slot.time))return;
+                if(!(cls.batch==='ALL'||cls.batch===batch||cls.anatomyBatch===anatomyBatch))return;
                 rendered.add(slot.time);
-
-                const startMin = timeToMinutes(slot.time);
-                const endMin   = startMin + slot.duration;
-                const isOngoing = isToday && now >= startMin && now < endMin;
-                const isNext    = isToday && !isOngoing && slot.time === nextClassTime;
-
-                const itemCls  = isOngoing ? 'class-item ongoing' : isNext ? 'class-item next-up' : 'class-item';
-                const timeCls  = isOngoing ? 'class-time ongoing-time' : isNext ? 'class-time nextup-time' : 'class-time';
-                const chip     = isOngoing
-                    ? '<span class="status-chip status-ongoing">Ongoing</span>'
-                    : isNext
-                        ? '<span class="status-chip status-next">Up Next</span>'
-                        : '';
-
-                html += `
-                    <div class="${itemCls}">
-                        <div class="class-header">
-                            <span class="${timeCls}">
-                                <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
-                                ${formatTime(slot.time)}${chip}
-                            </span>
-                            <span class="type-badge type-${cls.type.toLowerCase()}">${cls.type}</span>
-                        </div>
-                        <div class="class-subject">${cls.subject}</div>
-                        <div class="class-details">
-                            <span class="class-detail-item">
-                                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                                ${cls.venue}
-                            </span>
-                            <span class="class-detail-item">
-                                <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
-                                ${slot.duration} min
-                            </span>
-                        </div>
-                    </div>`;
+                const sMin=timeToMinutes(slot.time), eMin=sMin+slot.duration;
+                const isOngoing=isToday&&now>=sMin&&now<eMin;
+                const isNext=isToday&&!isOngoing&&slot.time===nextClassTime;
+                const iCls=isOngoing?'class-item ongoing':isNext?'class-item next-up':'class-item';
+                const tCls=isOngoing?'class-time ongoing-time':isNext?'class-time nextup-time':'class-time';
+                const chip=isOngoing
+                    ?'<span class="status-chip status-ongoing">Ongoing</span>'
+                    :isNext?'<span class="status-chip status-next">Up Next</span>':'';
+                html+=`<div class="${iCls}">
+                    <div class="class-header">
+                        <span class="${tCls}">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            ${formatTime(slot.time)}${chip}
+                        </span>
+                        <span class="type-badge type-${cls.type.toLowerCase()}">${cls.type}</span>
+                    </div>
+                    <div class="class-subject">${cls.subject}</div>
+                    <div class="class-details">
+                        <span class="class-detail-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            ${cls.venue}
+                        </span>
+                        <span class="class-detail-item">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            ${slot.duration} min
+                        </span>
+                    </div>
+                </div>`;
             });
         });
-
-        container.innerHTML = html || `<div class="empty-state">
-            <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
-            <div class="empty-state-text">No classes scheduled for ${selectedDay}</div>
-        </div>`;
-
-        // Auto-refresh highlights every minute when viewing today
-        if (isToday) scheduleRefreshTimer = setTimeout(updateSchedule, 60000);
+        container.innerHTML=html||`<div class="empty-state"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+            <div class="empty-state-text">No classes scheduled for ${selectedDay}</div></div>`;
+        if(isToday)scheduleRefreshTimer=setTimeout(updateSchedule,60000);
     }
 
     // ── DAY SELECTOR ───────────────────────────────────────
     function createDaySelector() {
-        const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-        document.getElementById('daySelector').innerHTML = days.map(day => {
-            const isOff = day === 'Friday';
-            const active = day === selectedDay ? 'active' : '';
-            const off = isOff ? 'off' : '';
-            return `<button class="day-btn ${active} ${off}" onclick="selectDay('${day}')">${day.slice(0,3)}</button>`;
+        const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        document.getElementById('daySelector').innerHTML=days.map(d=>{
+            const off=d==='Friday'?'off':'', active=d===selectedDay?'active':'';
+            return `<button class="day-btn ${active} ${off}" onclick="selectDay('${d}')">${d.slice(0,3)}</button>`;
         }).join('');
     }
-
-    function selectDay(day) {
-        selectedDay = day;
-        createDaySelector();
-        updateSchedule();
-        updateCountdown();
-    }
+    function selectDay(day){selectedDay=day;createDaySelector();updateSchedule();updateCountdown();}
 
     // ── ROLL INPUT ─────────────────────────────────────────
-    document.getElementById('rollInput').addEventListener('input', e => handleRollChange(e.target.value));
+    document.getElementById('rollInput').addEventListener('input',e=>handleRollChange(e.target.value));
 
     function handleRollChange(value) {
-        const rollNum = parseInt(value);
-        if (isNaN(rollNum) || rollNum < 1 || rollNum > 229) {
-            document.getElementById('infoBox').style.display = 'none';
-            batch = ''; anatomyBatch = '';
-            updateSchedule(); updateCountdown();
-            return;
+        const n=parseInt(value);
+        if(isNaN(n)||n<1||n>229){
+            document.getElementById('infoBox').style.display='none';
+            batch='';anatomyBatch='';updateSchedule();updateCountdown();clearReminderTimeouts();return;
         }
-        for (const [l, r] of Object.entries(batchRanges)) {
-            if (rollNum >= r.start && rollNum <= r.end) { batch = l; break; }
-        }
-        for (const [l, r] of Object.entries(anatomyBatchRanges)) {
-            if (rollNum >= r.start && rollNum <= r.end) { anatomyBatch = l; break; }
-        }
-        if (batch && anatomyBatch) {
-            document.getElementById('batchBadge').textContent = batch;
-            document.getElementById('anatomyBadge').textContent = anatomyBatch;
-            document.getElementById('infoBox').style.display = 'block';
-            localStorage.setItem('rollNumber', value);
-            updateSchedule();
-            updateCountdown();
+        for(const[l,r]of Object.entries(batchRanges)){if(n>=r.start&&n<=r.end){batch=l;break;}}
+        for(const[l,r]of Object.entries(anatomyBatchRanges)){if(n>=r.start&&n<=r.end){anatomyBatch=l;break;}}
+        if(batch&&anatomyBatch){
+            document.getElementById('batchBadge').textContent=batch;
+            document.getElementById('anatomyBadge').textContent=anatomyBatch;
+            document.getElementById('infoBox').style.display='block';
+            localStorage.setItem('rollNumber',value);
+            updateSchedule();updateCountdown();
+            if(remindersEnabled)scheduleReminders();
         }
     }
 
     // ── INIT ───────────────────────────────────────────────
     function init() {
-        // PWA — register service worker via blob (no separate sw.js needed)
-        if ('serviceWorker' in navigator) {
-            const swCode = `
-                const CACHE='somc64-v1';
-                self.addEventListener('install',e=>self.skipWaiting());
-                self.addEventListener('activate',e=>e.waitUntil(clients.claim()));
-                self.addEventListener('fetch',e=>{
-                    if(e.request.method!=='GET')return;
-                    e.respondWith(
-                        caches.open(CACHE).then(cache=>
-                            cache.match(e.request).then(cached=>
-                                cached||fetch(e.request).then(resp=>{
-                                    cache.put(e.request,resp.clone());
-                                    return resp;
-                                }).catch(()=>cached)
-                            )
-                        )
-                    );
-                });`;
-            const blob = new Blob([swCode], { type: 'application/javascript' });
-            navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
+        // Apply dark mode before paint
+        applyDark();
+
+        // PWA service worker
+        if('serviceWorker' in navigator){
+            const sw=`const C='somc64-v1';self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>e.waitUntil(clients.claim()));self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(caches.open(C).then(cache=>cache.match(e.request).then(cached=>cached||fetch(e.request).then(r=>{cache.put(e.request,r.clone());return r;}).catch(()=>cached))));});`;
+            navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'application/javascript'}))).catch(()=>{});
         }
 
-        // Restore saved roll number
-        const saved = localStorage.getItem('rollNumber');
-        if (saved) {
-            document.getElementById('rollInput').value = saved;
-            handleRollChange(saved);
+        // Restore roll
+        const saved=localStorage.getItem('rollNumber');
+        if(saved){document.getElementById('rollInput').value=saved;handleRollChange(saved);}
+
+        // Today
+        const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        selectedDay=DAYS[new Date().getDay()];
+        createDaySelector();updateSchedule();loadAnnouncements();
+
+        // Restore reminders
+        if(localStorage.getItem('reminders')==='1'&&Notification.permission==='granted'){
+            remindersEnabled=true;
+            document.getElementById('reminderBtn').classList.add('active');
+            document.getElementById('reminderBtnText').textContent='Reminders Enabled';
+            scheduleReminders();
         }
 
-        // Set today
-        const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-        selectedDay = DAYS[new Date().getDay()];
-
-        createDaySelector();
-        updateSchedule();
-        loadAnnouncements();
-
-        // Live countdown every second
-        if (countdownInterval) clearInterval(countdownInterval);
-        countdownInterval = setInterval(updateCountdown, 1000);
+        // Live countdown
+        if(countdownInterval)clearInterval(countdownInterval);
+        countdownInterval=setInterval(updateCountdown,1000);
         updateCountdown();
     }
 
